@@ -14,6 +14,14 @@
 		28FDAE4E24FCA0C10080E5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28FDAE4D24FCA0C10080E5A5 /* Assets.xcassets */; };
 		28FDAE5124FCA0C10080E5A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28FDAE4F24FCA0C10080E5A5 /* LaunchScreen.storyboard */; };
 		28FDAE5424FCA0C10080E5A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE5324FCA0C10080E5A5 /* main.m */; };
+		28FDAE6724FCA1940080E5A5 /* UIImage+ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE5D24FCA1940080E5A5 /* UIImage+ThemeColor.m */; };
+		28FDAE6824FCA1940080E5A5 /* QNColorBoxPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6024FCA1940080E5A5 /* QNColorBoxPriorityQueue.m */; };
+		28FDAE6924FCA1940080E5A5 /* QNColorBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6224FCA1940080E5A5 /* QNColorBox.m */; };
+		28FDAE6A24FCA1940080E5A5 /* QNColorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6324FCA1940080E5A5 /* QNColorItem.m */; };
+		28FDAE6B24FCA1940080E5A5 /* QNThemeColorExtracter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6424FCA1940080E5A5 /* QNThemeColorExtracter.m */; };
+		28FDAE6C24FCA1940080E5A5 /* QNColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6624FCA1940080E5A5 /* QNColorTransformer.m */; };
+		28FDAE6F24FCA2190080E5A5 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6E24FCA2190080E5A5 /* UIView+Utils.m */; };
+		28FDAE7124FCA32F0080E5A5 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28FDAE7024FCA32F0080E5A5 /* Image.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +37,21 @@
 		28FDAE5024FCA0C10080E5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28FDAE5224FCA0C10080E5A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28FDAE5324FCA0C10080E5A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		28FDAE5B24FCA1930080E5A5 /* QNColorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNColorItem.h; sourceTree = "<group>"; };
+		28FDAE5C24FCA1930080E5A5 /* QNThemeColorExtracter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNThemeColorExtracter.h; sourceTree = "<group>"; };
+		28FDAE5D24FCA1940080E5A5 /* UIImage+ThemeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ThemeColor.m"; sourceTree = "<group>"; };
+		28FDAE5E24FCA1940080E5A5 /* QNColorBoxPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNColorBoxPriorityQueue.h; sourceTree = "<group>"; };
+		28FDAE5F24FCA1940080E5A5 /* QNColorTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNColorTransformer.h; sourceTree = "<group>"; };
+		28FDAE6024FCA1940080E5A5 /* QNColorBoxPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNColorBoxPriorityQueue.m; sourceTree = "<group>"; };
+		28FDAE6124FCA1940080E5A5 /* QNColorBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNColorBox.h; sourceTree = "<group>"; };
+		28FDAE6224FCA1940080E5A5 /* QNColorBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNColorBox.m; sourceTree = "<group>"; };
+		28FDAE6324FCA1940080E5A5 /* QNColorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNColorItem.m; sourceTree = "<group>"; };
+		28FDAE6424FCA1940080E5A5 /* QNThemeColorExtracter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNThemeColorExtracter.m; sourceTree = "<group>"; };
+		28FDAE6524FCA1940080E5A5 /* UIImage+ThemeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ThemeColor.h"; sourceTree = "<group>"; };
+		28FDAE6624FCA1940080E5A5 /* QNColorTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNColorTransformer.m; sourceTree = "<group>"; };
+		28FDAE6D24FCA2190080E5A5 /* UIView+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		28FDAE6E24FCA2190080E5A5 /* UIView+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
+		28FDAE7024FCA32F0080E5A5 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +68,7 @@
 		28FDAE3524FCA0BF0080E5A5 = {
 			isa = PBXGroup;
 			children = (
+				28FDAE7024FCA32F0080E5A5 /* Image.bundle */,
 				28FDAE4024FCA0BF0080E5A5 /* YUNImageThemeColor */,
 				28FDAE3F24FCA0BF0080E5A5 /* Products */,
 			);
@@ -61,6 +85,7 @@
 		28FDAE4024FCA0BF0080E5A5 /* YUNImageThemeColor */ = {
 			isa = PBXGroup;
 			children = (
+				28FDAE5A24FCA1630080E5A5 /* ImageThemeColor */,
 				28FDAE4124FCA0BF0080E5A5 /* AppDelegate.h */,
 				28FDAE4224FCA0BF0080E5A5 /* AppDelegate.m */,
 				28FDAE4424FCA0C00080E5A5 /* SceneDelegate.h */,
@@ -72,8 +97,29 @@
 				28FDAE4F24FCA0C10080E5A5 /* LaunchScreen.storyboard */,
 				28FDAE5224FCA0C10080E5A5 /* Info.plist */,
 				28FDAE5324FCA0C10080E5A5 /* main.m */,
+				28FDAE6D24FCA2190080E5A5 /* UIView+Utils.h */,
+				28FDAE6E24FCA2190080E5A5 /* UIView+Utils.m */,
 			);
 			path = YUNImageThemeColor;
+			sourceTree = "<group>";
+		};
+		28FDAE5A24FCA1630080E5A5 /* ImageThemeColor */ = {
+			isa = PBXGroup;
+			children = (
+				28FDAE6124FCA1940080E5A5 /* QNColorBox.h */,
+				28FDAE6224FCA1940080E5A5 /* QNColorBox.m */,
+				28FDAE5E24FCA1940080E5A5 /* QNColorBoxPriorityQueue.h */,
+				28FDAE6024FCA1940080E5A5 /* QNColorBoxPriorityQueue.m */,
+				28FDAE5B24FCA1930080E5A5 /* QNColorItem.h */,
+				28FDAE6324FCA1940080E5A5 /* QNColorItem.m */,
+				28FDAE5F24FCA1940080E5A5 /* QNColorTransformer.h */,
+				28FDAE6624FCA1940080E5A5 /* QNColorTransformer.m */,
+				28FDAE5C24FCA1930080E5A5 /* QNThemeColorExtracter.h */,
+				28FDAE6424FCA1940080E5A5 /* QNThemeColorExtracter.m */,
+				28FDAE6524FCA1940080E5A5 /* UIImage+ThemeColor.h */,
+				28FDAE5D24FCA1940080E5A5 /* UIImage+ThemeColor.m */,
+			);
+			path = ImageThemeColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +181,7 @@
 				28FDAE5124FCA0C10080E5A5 /* LaunchScreen.storyboard in Resources */,
 				28FDAE4E24FCA0C10080E5A5 /* Assets.xcassets in Resources */,
 				28FDAE4C24FCA0C00080E5A5 /* Main.storyboard in Resources */,
+				28FDAE7124FCA32F0080E5A5 /* Image.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,9 +193,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				28FDAE4924FCA0C00080E5A5 /* ViewController.m in Sources */,
+				28FDAE6B24FCA1940080E5A5 /* QNThemeColorExtracter.m in Sources */,
 				28FDAE4324FCA0BF0080E5A5 /* AppDelegate.m in Sources */,
 				28FDAE5424FCA0C10080E5A5 /* main.m in Sources */,
+				28FDAE6C24FCA1940080E5A5 /* QNColorTransformer.m in Sources */,
+				28FDAE6F24FCA2190080E5A5 /* UIView+Utils.m in Sources */,
 				28FDAE4624FCA0C00080E5A5 /* SceneDelegate.m in Sources */,
+				28FDAE6924FCA1940080E5A5 /* QNColorBox.m in Sources */,
+				28FDAE6A24FCA1940080E5A5 /* QNColorItem.m in Sources */,
+				28FDAE6824FCA1940080E5A5 /* QNColorBoxPriorityQueue.m in Sources */,
+				28FDAE6724FCA1940080E5A5 /* UIImage+ThemeColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
