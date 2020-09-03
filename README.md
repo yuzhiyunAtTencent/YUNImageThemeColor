@@ -10,18 +10,18 @@ iOS端OC版本图片主题色识别框架
 
 比如下方左边图片识别出结果是绿色
 
-
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/1.png)
 
 # 应用场景：
 ## 1、QQ音乐:
 把音乐封面图主题色作为整体播放界面的背景色
 
-
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/2.png)
 
 ## 2、网易云音乐:
 用户可以自己自定义个人页头部背景图，按钮颜色会相应的变化
 
-
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/3.png)
 
 # 技术分析
 ## 1、最粗暴的想法：
@@ -100,6 +100,7 @@ D = max(Δr, Δg, Δb)， 找到最大的差值后，寻找一个垂直于该分
 
  int colorHistGram[2^24];
 
+```
 /// 返回一块存储图像像素点颜色信息的内存地址
 /// @param image image description
 - (unsigned char *)p_rawPixelDataFromImage:(UIImage *)image {
@@ -129,6 +130,7 @@ D = max(Δr, Δg, Δb)， 找到最大的差值后，寻找一个垂直于该分
     
     return rawData;
 }
+```
 
 #### 2、“颜色分布柱状图”数组内存优化
 回到最初提到的数组 int colorHistGram[2^24] 
