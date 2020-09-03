@@ -208,3 +208,7 @@ https://www.androidos.net.cn/android/8.0.0_r4/xref/frameworks/support/v7/palette
 引入#import "UIImage+ThemeColor.h"
 
 然后调用函数即可 - (void)getThemeColor:(QNGetColorBlock)colorBlock
+
+## 本人业余维护的公众号
+
+<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/qrcode.jpeg"/></div> 
