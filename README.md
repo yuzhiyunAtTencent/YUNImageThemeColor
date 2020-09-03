@@ -27,8 +27,8 @@ iOS端OC版本图片主题色识别框架
 ## 1、最粗暴的想法：
 当我们第一次面对这个需求的时候，在不参考任何资料的前提下，大家的初步想法都是一样简单粗暴的，就是首先从头到尾遍历图像的每一个像素点，获取每个像素点的颜色，然后统计每个颜色值出现的次数，次数最多那个颜色就是目标颜色了。
 
-
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/4.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/4.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/4.png"/></div> -->
 上图（我们称之为“颜色分布柱状图”）表达了这种最简单粗暴的想法，定义一个数组 int colorHistGram[2^24] 来记录整张图像的颜色值，index代表颜色值（范围： 黑色000000到白色FFFFFF），value代表这个颜色值在图像中出现的次数，那么上面柱状图最高的柱体对应的颜色就是目标值了。
 
 ## 2、肉眼与计算机的差异
@@ -38,12 +38,14 @@ iOS端OC版本图片主题色识别框架
 
 我在下图中“蓝色天空”部分圈出了两个像素点，在计算机看来，point 1 的RBG具体数值和 point 2 存在细微的差异，而弱小的肉眼，是无法分辨这种细微差别的，人类大脑认为，1和2是一样的颜色。所以上面提到的简单粗暴的想法没什么意义，因为“一样”的颜色并没有使得“颜色分布柱状图”对应颜色的柱体变得更高，都被分散开来了。
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/5.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/5.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/5.png"/></div> -->
 
 ## 3、解决颜色分散问题：聚合相近的颜色
 那么问题来了，我们需要设计一种算法使得计算机模拟肉眼的行为，把相近的颜色聚合在一起，当成是一种颜色。
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/6.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/6.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/6.png"/></div> -->
 
 仍旧以上图为例子，我们希望实现的效果大概是：算法可以识别出有一大块蓝色（对应图中天空）、有一块绿色（对应图中树木）、有一小块白色（对应图中浪花）
 
@@ -57,15 +59,18 @@ y^2 = (r2 - r1)^2 + (g2 - g1)^2 + (b2 - b1)^2
 
 正好我们在此引入颜色空间的概念，相信大家都很熟悉了，所有的颜色值都被涵盖在这个边长为255的正方体内部了，任何一个颜色值都对应空间内一个点。
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/7.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/7.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/7.png"/></div> -->
 
 现在来看看我们将要解析的图片，把一张图片每个像素点的颜色值对应到颜色空间内，大概是这样的（下图每个小球都对应一个像素点）：
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/8.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/8.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/8.png"/></div> -->
 
 那么我们的求图片主题色的目标已经转变为这样一个数学问题了，就是求出几个长方体，这几个长方体把相近的颜色包含在内部，然后我们要算出哪个长方体包含的像素点最多，那这个长方体对应的颜色就是图片主题色了。
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/9.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/9.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/9.png"/></div> -->
 
 ## 4、中位切分算法（Medium-Cut algorithm）
 最初，我们把图像对应的像素点对应到颜色空间后，得到了一个边长为255的立方体，现在我们要开始切割这个立方体。
@@ -90,7 +95,8 @@ D = max(Δr, Δg, Δb)， 找到最大的差值后，寻找一个垂直于该分
 
 步骤1示意图如下：
 
-<div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/10.png"/></div>
+![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/10.png)
+<!-- <div align=center><img width="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/10.png"/></div> -->
 
 ### 具体实现细节
 #### 1、获取每个像素点的颜色值
