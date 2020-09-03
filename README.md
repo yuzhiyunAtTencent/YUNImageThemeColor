@@ -3,7 +3,9 @@ iOS端OC版本图片主题色识别框架
 
 ![image](https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/theme.jpeg)
 
+<div align=center><img width="150" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/theme.jpeg"/></div>
 
+<div align=center><img width="150"  height="300" src="https://github.com/yuzhiyunAtTencent/YUNImageThemeColor/blob/master/ReadmeImages/theme.jpeg"/></div>
 # 背景：
 什么是图片主题色：
 定义：一个代表具体图片整体颜色的近似值，简单来说，这个颜色值在图片内占用的面积最大。
