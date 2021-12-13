@@ -22,6 +22,7 @@
 		28FDAE6C24FCA1940080E5A5 /* QNColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6624FCA1940080E5A5 /* QNColorTransformer.m */; };
 		28FDAE6F24FCA2190080E5A5 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FDAE6E24FCA2190080E5A5 /* UIView+Utils.m */; };
 		28FDAE7124FCA32F0080E5A5 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28FDAE7024FCA32F0080E5A5 /* Image.bundle */; };
+		A0DD1DF427674F3300B0A14C /* PaletteTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DD1DF327674F3300B0A14C /* PaletteTarget.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		28FDAE6D24FCA2190080E5A5 /* UIView+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		28FDAE6E24FCA2190080E5A5 /* UIView+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		28FDAE7024FCA32F0080E5A5 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
+		A0DD1DF227674F3300B0A14C /* PaletteTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaletteTarget.h; sourceTree = "<group>"; };
+		A0DD1DF327674F3300B0A14C /* PaletteTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaletteTarget.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 		28FDAE5A24FCA1630080E5A5 /* ImageThemeColor */ = {
 			isa = PBXGroup;
 			children = (
+				A0DD1DF227674F3300B0A14C /* PaletteTarget.h */,
+				A0DD1DF327674F3300B0A14C /* PaletteTarget.m */,
 				28FDAE6124FCA1940080E5A5 /* QNColorBox.h */,
 				28FDAE6224FCA1940080E5A5 /* QNColorBox.m */,
 				28FDAE5E24FCA1940080E5A5 /* QNColorBoxPriorityQueue.h */,
@@ -200,6 +205,7 @@
 				28FDAE6F24FCA2190080E5A5 /* UIView+Utils.m in Sources */,
 				28FDAE4624FCA0C00080E5A5 /* SceneDelegate.m in Sources */,
 				28FDAE6924FCA1940080E5A5 /* QNColorBox.m in Sources */,
+				A0DD1DF427674F3300B0A14C /* PaletteTarget.m in Sources */,
 				28FDAE6A24FCA1940080E5A5 /* QNColorItem.m in Sources */,
 				28FDAE6824FCA1940080E5A5 /* QNColorBoxPriorityQueue.m in Sources */,
 				28FDAE6724FCA1940080E5A5 /* UIImage+ThemeColor.m in Sources */,

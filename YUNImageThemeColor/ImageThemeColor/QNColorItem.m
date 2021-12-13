@@ -30,4 +30,11 @@
     return self;
 }
 
+- (NSArray*)getHsb {
+    CGFloat hue, saturation, brightness;
+    [self.color getHue:&hue saturation:&saturation brightness:&brightness alpha:NULL];
+    NSArray *hsb = @[@(hue), @(saturation), @(brightness)];
+    return hsb;
+}
+
 @end

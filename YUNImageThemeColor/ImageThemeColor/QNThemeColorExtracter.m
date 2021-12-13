@@ -10,7 +10,7 @@
 #import "QNColorTransformer.h"
 #import "QNColorBox.h"
 #import "QNColorBoxPriorityQueue.h"
-
+#import "PaletteTarget.h"
 
 static int colorHistGram[32768]; // 2^15   一张图片对应的颜色直方图，index代表颜色值，value代表这个颜色值的像素点数量
 static dispatch_queue_t imageColorQueue;
@@ -22,7 +22,8 @@ static dispatch_queue_t imageColorQueue;
 @property(nonatomic, strong) NSMutableArray *distinctColors;
 @property(nonatomic, strong) QNColorBoxPriorityQueue *priorityQueue;
 @property(nonatomic, strong) NSMutableArray<QNColorItem *> *colorArray;
-
+@property (nonatomic,strong) NSArray *targetArray;
+@property (nonatomic,assign) NSInteger maxPopulation;
 @end
 
 @implementation QNThemeColorExtracter
@@ -37,6 +38,7 @@ static dispatch_queue_t imageColorQueue;
         imageColorQueue = dispatch_queue_create("com.tencent.image.themecolor", DISPATCH_QUEUE_SERIAL);
     }
     
+    [self setPaletteTargetArray];
     dispatch_async(imageColorQueue, ^{
         self.image = image;
         [self clearHistArray];
@@ -133,13 +135,102 @@ static dispatch_queue_t imageColorQueue;
             [self calculateAverageColors:self.priorityQueue];
         }
         
-        [self _sortColorResultByPixelCount];
-        UIColor *imageThemeColor = [[self.colorArray firstObject] color];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            colorBlock(imageThemeColor, self.colorArray);
-        });
+        [self findMaxPopulation];
+        [self getColorForAllModeWithColorBlock:colorBlock];
     });
+}
+
+- (void)findMaxPopulation {
+    __block NSInteger max = 0;
+    [self.colorArray enumerateObjectsUsingBlock:^(QNColorItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        max =  MAX(max, obj.pixelCount);
+    }];
+    _maxPopulation = max;
+}
+
+- (void)getColorForAllModeWithColorBlock:(QNGetColorBlock)colorBlock {
+    NSMutableDictionary *finalDic = [[NSMutableDictionary alloc]init];
+    for (NSInteger i = 0;i<_targetArray.count;i++){
+        PaletteTarget *target = [_targetArray objectAtIndex:i];
+        [target normalizeWeights];
+        QNColorItem *colorItem = [self getMaxScoredColorItemForTarget:target];
+        if (colorItem) {
+            [finalDic setObject:colorItem forKey:[target getTargetKey]];
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        colorBlock([finalDic copy]);
+    });
+}
+
+- (QNColorItem *)getMaxScoredColorItemForTarget:(PaletteTarget *)target {
+    __block CGFloat maxScore = 0;
+    __block QNColorItem *maxScoreColorItem = nil;
+    [self.colorArray enumerateObjectsUsingBlock:^(QNColorItem * _Nonnull color, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([self shouldBeScoredForTarget:color target:target]){
+            CGFloat score = [self generateScoreForTarget:target colorItem:color];
+            if (maxScore == 0 || score > maxScore){
+                maxScoreColorItem = color;
+                maxScore = score;
+            }
+        }
+    }];
+    
+    return maxScoreColorItem;
+}
+
+- (BOOL)shouldBeScoredForTarget:(QNColorItem *)colorItem target:(PaletteTarget*)target {
+    NSArray *hsb = [colorItem getHsb];
+    return [hsb[1] floatValue] >= [target getMinSaturation] && [hsb[1] floatValue]<= [target getMaxSaturation]
+    && [hsb[2] floatValue]>= [target getMinLuma] && [hsb[2] floatValue] <= [target getMaxLuma];
+}
+
+- (CGFloat)generateScoreForTarget:(PaletteTarget*)target colorItem:(QNColorItem *)colorItem {
+    NSArray *hsb = [colorItem getHsb];
+    
+    float saturationScore = 0;
+    float luminanceScore = 0;
+    float populationScore = 0;
+    
+    if ([target getSaturationWeight] > 0) {
+        saturationScore = [target getSaturationWeight]
+        * (1.0f - fabsf([hsb[1] floatValue] - [target getTargetSaturation]));
+    }
+    if ([target getLumaWeight] > 0) {
+        luminanceScore = [target getLumaWeight]
+        * (1.0f - fabsf([hsb[2] floatValue] - [target getTargetLuma]));
+    }
+    if ([target getPopulationWeight] > 0) {
+        populationScore = [target getPopulationWeight]
+        * (colorItem.pixelCount / (float) _maxPopulation);
+    }
+    
+    return saturationScore + luminanceScore + populationScore;
+}
+
+// 提供6种模式的颜色，让业务层自己选择想要的结果
+- (void)setPaletteTargetArray {
+    NSMutableArray *targets = [[NSMutableArray alloc]init];
+    
+    PaletteTarget *vibrantTarget = [[PaletteTarget alloc]initWithTargetMode:VIBRANT_PALETTE];
+    [targets addObject:vibrantTarget];
+    
+    PaletteTarget *mutedTarget = [[PaletteTarget alloc]initWithTargetMode:MUTED_PALETTE];
+    [targets addObject:mutedTarget];
+    
+    PaletteTarget *lightVibrantTarget = [[PaletteTarget alloc]initWithTargetMode:LIGHT_VIBRANT_PALETTE];
+    [targets addObject:lightVibrantTarget];
+    
+    PaletteTarget *lightMutedTarget = [[PaletteTarget alloc]initWithTargetMode:LIGHT_MUTED_PALETTE];
+    [targets addObject:lightMutedTarget];
+    
+    PaletteTarget *darkVibrantTarget = [[PaletteTarget alloc]initWithTargetMode:DARK_VIBRANT_PALETTE];
+    [targets addObject:darkVibrantTarget];
+    
+    PaletteTarget *darkMutedTarget = [[PaletteTarget alloc]initWithTargetMode:DARK_MUTED_PALETTE];
+    [targets addObject:darkMutedTarget];
+    _targetArray = [targets copy];
 }
 
 - (void)_sortColorResultByPixelCount {

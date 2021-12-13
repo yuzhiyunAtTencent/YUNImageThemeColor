@@ -18,7 +18,8 @@ UITableViewDataSource, UITableViewDelegate>
 @property(nonatomic, strong) UILabel *mainColorLabel;
 @property(nonatomic, strong) UITableView *colorTableView;
 
-@property(nonatomic, strong) NSArray<QNColorItem *> *colorArray;
+@property(nonatomic, strong) NSDictionary<NSString *,QNColorItem *> *colorDic;
+@property(nonatomic, strong) NSArray<NSString *> *colorKeys;
 
 @end
 
@@ -49,38 +50,16 @@ UITableViewDataSource, UITableViewDelegate>
         imageView;
     });
     
-    self.mainColorLabel = ({
-        UILabel *label = [[UILabel alloc] init];
-        label.text = @"上方图片的主题色是：";
-        [label sizeToFit];
-        label.qn_top = self.avatarImageView.qn_bottom + 5;
-        label.qn_centerX = self.avatarImageView.qn_centerX;
-        label;
-    });
-
-    self.mainColorView = ({
-        CGFloat leftSpace = 50;
-        UIView *view = [[UIView alloc] initWithFrame:
-                        CGRectMake(leftSpace, 0, self.view.bounds.size.width - 2 * leftSpace, 30)];
-        view.qn_top = self.mainColorLabel.qn_bottom + 5;
-        view.backgroundColor = [UIColor blackColor];
-        view;
-    });
-    
     self.colorTableView.qn_centerX = self.view.bounds.size.width / 2;
-    self.colorTableView.qn_top = self.mainColorView.qn_bottom + 20;
+    self.colorTableView.qn_top = self.avatarImageView.qn_bottom + 20;
     
     // weakify
-    [self.avatarImageView.image getThemeColor:^(UIColor * _Nonnull themeColor, NSArray<QNColorItem *> * _Nonnull colorArray) {
-        self.mainColorView.backgroundColor = themeColor;
-        
-        self.colorArray = [colorArray copy];
+    [self.avatarImageView.image getThemeColor:^(NSDictionary<NSString *,QNColorItem *> * _Nonnull colorDic) {
+        self.colorDic = colorDic;
         [self.colorTableView reloadData];
     }];
     
     [self.view addSubview:self.avatarImageView];
-    [self.view addSubview:self.mainColorLabel];
-    [self.view addSubview:self.mainColorView];
     [self.view addSubview:self.colorTableView];
     
     //打开用户交互
@@ -89,7 +68,6 @@ UITableViewDataSource, UITableViewDelegate>
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarDidTapped:)];
     //为图片添加手势
     [self.avatarImageView addGestureRecognizer:singleTap];
-
 }
 
 #pragma mark - Private
@@ -142,10 +120,10 @@ UITableViewDataSource, UITableViewDelegate>
         self.avatarImageView.image = originImage;
         
         // 这里拿到了UIImage ,开始解析图片获取颜色值
-        [originImage getThemeColor:^(UIColor * _Nonnull themeColor, NSArray<QNColorItem *> * _Nonnull colorArray) {
-            self.mainColorView.backgroundColor = themeColor;
+        [originImage getThemeColor:^(NSDictionary<NSString *,QNColorItem *> * _Nonnull colorDic) {
+//            self.mainColorView.backgroundColor = themeColor;
             
-            self.colorArray = [colorArray copy];
+            self.colorDic = colorDic;
             [self.colorTableView reloadData];
         }];
     }
@@ -171,7 +149,7 @@ UITableViewDataSource, UITableViewDelegate>
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.colorArray count];
+    return [self.colorDic allValues].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,11 +158,11 @@ UITableViewDataSource, UITableViewDelegate>
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
-    QNColorItem *colorItem = [self.colorArray objectAtIndex:indexPath.row];
+    QNColorItem *colorItem = [self.colorDic.allValues objectAtIndex:indexPath.row];
+    NSString *colorMode = [self.colorDic.allKeys objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"百分之%@', 像素点数量：%@",
-                           @(colorItem.percent),
-                           @(colorItem.pixelCount)];
+    cell.textLabel.text = [NSString stringWithFormat:@"mode = %@",
+                           colorMode];
     if (colorItem.isPureColor) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@  纯色", cell.textLabel.text];
     }
