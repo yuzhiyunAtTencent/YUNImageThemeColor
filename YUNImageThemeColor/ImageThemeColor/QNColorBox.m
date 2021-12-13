@@ -140,7 +140,7 @@
     array = [[array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSNumber *num1 = (NSNumber *)obj1;
         NSNumber *num2 = (NSNumber *)obj2;
-        if (num1 > num2) {
+        if (num1.integerValue > num2.integerValue) {
             return NSOrderedDescending;
         } else {
             return NSOrderedAscending;
