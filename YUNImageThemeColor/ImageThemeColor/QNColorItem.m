@@ -26,11 +26,6 @@
         self.color = color;
         self.percent = percent;
         self.pixelCount = pixelCount;
-        
-        // warning zhiyun
-        CGFloat h, s, b;
-        [color getHue:&h saturation:&s brightness:&b alpha:NULL];
-        NSLog(@" hsb = %@, %@, %@", @(h), @(s), @(b));
     }
     return self;
 }
